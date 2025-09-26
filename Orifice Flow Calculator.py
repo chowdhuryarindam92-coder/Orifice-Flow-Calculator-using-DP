@@ -1,0 +1,45 @@
+import streamlit as st
+import numpy as np
+
+# Title
+st.title("Flow Calculation (Q2)")
+
+st.markdown("""
+This app calculates **Q2** using the formula:
+
+\[
+Q2 = \frac{Q1}{\sqrt{\Delta P1 / \Delta P2}}
+\]
+""")
+
+# Input fields
+q1 = st.number_input(
+    label="Q1 (ton/hr)",
+    min_value=0.0,
+    max_value=10000.0,
+    value=5000.0,
+    step=10.0
+)
+
+dp1 = st.number_input(
+    label="ΔP1 (mmWC)",
+    min_value=0.0,
+    max_value=100000.0,
+    value=50000.0,
+    step=100.0
+)
+
+dp2 = st.number_input(
+    label="ΔP2 (mmWC)",
+    min_value=0.0,
+    max_value=100000.0,
+    value=25000.0,
+    step=100.0
+)
+
+# Calculate Q2
+if dp2 > 0:
+    q2 = q1 / np.sqrt(dp1 / dp2)
+    st.success(f"✅ Calculated Q2: {q2:.2f} ton/hr")
+else:
+    st.error("⚠️ ΔP2 must be greater than 0.")
